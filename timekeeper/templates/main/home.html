@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row" style="height: 40px; line-height: 40px;">
+  <div class="col text-center">
+      <a href="{% url 'main:weekof' prev_week.year prev_week.month prev_week.day %}">« Prev</a>
+  </div>
+  <div class="col-8">
+    <h2 class="text-center align-middle">Week of {{ week.0|date:"Y-m-d" }} to {{ week.6|date:"Y-m-d" }}</h2>
+  </div>
+  <div class="col text-center">
+      <a href="{% url 'main:weekof' next_week.year next_week.month next_week.day %}">Next »</a>
+  </div>
+</div>
+<table class="table table-striped">
+  
+  <thead>
+    <th scope="col">
+      Project
+    </th>
+    {% for day in week %}
+    <th scope="col">
+      {{ day|date:"l" }}<br>
+      {{ day|date:"Y-m-d" }}
+    </th>
+    {% endfor %}
+  </thead>
+
+  <tbody>
+    {% for proj_id, hours_list in hours_dict.items %}
+    <tr>
+      <th scope="row">{{ proj_id }}</td>
+      {% for h in hours_list %}
+      <td>{{ h }}</td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>Add Hours</h2>
+{% crispy hours_form %}
+
+{% endblock content %}
+

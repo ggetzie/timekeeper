@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h2>Add Hours</h2>
+{% if form.errors %}
+{{ form.errors }}
+{% crispy form %}
+
+{% endblock content %}
+

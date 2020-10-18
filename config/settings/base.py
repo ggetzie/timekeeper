@@ -42,7 +42,7 @@ LOCALE_PATHS = [str(ROOT_DIR / "locale")]
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
 DATABASES = {
-    "default": env.db("DATABASE_URL", default="postgres:///timekeeper")
+    "default": env.db("DATABASE_URL", default="postgres:///timekeeper_db")
 }
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
@@ -71,11 +71,12 @@ THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    "phonenumber_field"
 ]
 
 LOCAL_APPS = [
     "timekeeper.users.apps.UsersConfig",
-    # Your stuff: custom apps go here
+    "main"
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
