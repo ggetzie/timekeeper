@@ -25,7 +25,7 @@ class HoursAdmin(admin.ModelAdmin):
     list_display = ("date", "project_title", "quantity", "billed")
     list_editable = ("billed",)
     list_display_links = ("date", "project_title")
-    list_filter = ("project",)
+    list_filter = ("project", "date")
 
     def project_title(self, obj):
         return obj.project.title

@@ -2,12 +2,12 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<h2 class="text-center align-middle">Summary from {{ start_date }} to {{ end_date }}</h2>
+<h2 class="text-center align-middle">Annual Summary for {{ object.number }} - {{ object.title }}</h2>
 
 <table class="table table-striped">
   <thead>
     <th scope="col">
-      Project
+      Month
     </th>
     <th scope="col">
       Unbilled
@@ -18,13 +18,11 @@
   </thead>
 
   <tbody>
-    {% for row in rows %}
+    {% for month, hours in hours_table.items %}
     <tr>
-      <th scope="row">
-	<a href="{% url 'main:project_detail' row.0 %}">{{ row.0 }}</a>
-      </th>
-      <td>{{ row.1|default:0.0 }}</td>
-      <td>{{ row.2|default:0.0 }}</td>
+      <th scope="row">{{ month }}</th>
+      <td>{{ hours.0|default:0.0 }}</td>
+      <td>{{ hours.1|default:0.0 }}</td>
     </tr>
     {% endfor %}
   </tbody>
