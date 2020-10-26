@@ -30,7 +30,9 @@
   <tbody>
     {% for proj_id, hours_list in hours_dict.items %}
     <tr>
-      <th scope="row">{{ proj_id }}</td>
+      <th scope="row">
+	<a href="{% url 'main:project_detail' proj_id.number %}">{{ proj_id }}</a>
+      </th>
       {% for h in hours_list %}
       <td>{{ h }}</td>
       {% endfor %}
