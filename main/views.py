@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
 from django.db import connection
+from django.db.models import Sum
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic.detail import DetailView
@@ -105,7 +106,14 @@ class ProjectDetail(LoginRequiredMixin, DetailView):
         hours_table = {}
         for m in months:
             hours_table[m] = [Decimal(0), Decimal(0)]
+        hours_table["Total"] = [Decimal(0), Decimal(0)]
         for h in hours:
             hours_table[f"{h.date:%B}"][h.billed] += h.quantity
+        hours_table["Total"][0] = (hours
+                                      .filter(billed=False)
+                                      .aggregate(Sum("quantity"))["quantity__sum"])
+        hours_table["Total"][1] = (hours
+                                      .filter(billed=True)
+                                      .aggregate(Sum("quantity"))["quantity__sum"])
         context["hours_table"] = hours_table
         return context
