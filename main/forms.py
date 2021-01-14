@@ -4,9 +4,12 @@ from django.urls import reverse
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Field, Div
 
-from main.models import Hours
+from main.models import Hours, Project
 
 class HoursForm(forms.ModelForm):
+    project = forms.ModelChoiceField(queryset=(Project
+                                               .objects
+                                               .filter(status__in=["D", "M", "P"])))
     class Meta:
         model = Hours
         fields = ["date", "project", "quantity", "notes", "user"]

@@ -19,7 +19,7 @@ def next_pnum():
     if not maxnum:
         return f"J{current_year}_0001"
     max_year, index = maxnum.split("_")
-    max_year = int(year[1:])
+    max_year = int(max_year[1:])
     
     if current_year == max_year:
         index = int(index)+1
@@ -52,6 +52,8 @@ class Project(models.Model):
                                        ("D", "Development"),
                                        ("M", "Maintenance"),
                                        ("C", "Closed")))
+    total_hours = models.IntegerField("Total Hours",
+                                      default=-1)
 
     class Meta:
         db_table = "projects"
